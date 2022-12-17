@@ -27,16 +27,12 @@ def mainMenu():
 
 #Map Layout
 def layout(columnName):
-    #Remaining buildings at the side
-    print("      ",end = "                        ")
-    print("{:12s}{:s}".format("Buildings","Count"))
     #Prints map layout
     print("   ",end="")
     #Print top Alphabets
     for i in range(len(columnName)):
         print("  {}".format(columnName[i]),end="   ")
-    #Printing the format for remaining buildings
-    print("   ---------   -----")
+    print()
     for row in range(20):
         #leaving 2 spaces before printing map to look organized
         print("  ",end="")
@@ -44,9 +40,8 @@ def layout(columnName):
         for i in range(20):
             print("+-----",end="")
         print("+",end="      ")
-        #Prints 20 of the remaining building at the side
-        print("{:11s}{:d}".format(buildingType[row],totalBuildingList.count(buildingType[row])))
         #Prints row number
+        print()
         print("{:<2}".format(row+1),end="")
         for column in range(20):
             #prints map list into the map
@@ -56,9 +51,8 @@ def layout(columnName):
     #prints last +-----+-----+-----+-----+
     for row in range(20):
         print("+-----",end="")
-    print("+",end="      ")
-    #Prints last remaining building at side
-    print("{:11s}{:d}".format(buildingType[4],totalBuildingList.count(buildingType[4])))
+    print("+",end="")
+    print()
 
 def createEmptyMap(map_dimensions):
     mapList = {}
@@ -192,7 +186,13 @@ def loadCurrentRandomBuilding():
 
 #Function for coordinates
 def cord():
-    cordList = ["a1","a2","a3","a4","b1","b2","b3","b4","c1","c2","c3","c4","d1","d2","d3","d4"]
+    cols = "abcdefghijklmnopqrst"
+    cordList = []
+    for y in range(20):
+        for x in range(20):
+            cord = cols[y]+str(x+1)
+            cordList.append(cord)
+
     while True:
         try:
             cords = input("Build where? (e.g. a1) ")
