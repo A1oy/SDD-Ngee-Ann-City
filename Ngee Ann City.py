@@ -1,12 +1,15 @@
 #Starting of the game
 print("Welcome, Mayor of Simp City!")
 
+import csv
 import random
 import sys
+import json
 
 
 columnName =  ["A", "B", "C", "D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T"]
 turn = 1
+currency = 16
 totalBuildingList = []
 buildingType = []
 savedFileMap = []
@@ -31,26 +34,33 @@ def layout(columnName):
     print("   ",end="")
     #Print top Alphabets
     for i in range(len(columnName)):
-        print("  {}".format(columnName[i]),end="   ")
-    print()
+        print(" {} ".format(columnName[i]),end=" ")
+    print("        Currency")
     for row in range(20):
         #leaving 2 spaces before printing map to look organized
         print("  ",end="")
         #prints +-----+-----+-----+-----+
         for i in range(20):
-            print("+-----",end="")
-        print("+",end="      ")
+            print("+---",end="")
+        print("+",end="")
+        if row == 0:
+            print("        --------")
+        else:
+            print()
         #Prints row number
-        print()
         print("{:<2}".format(row+1),end="")
         for column in range(20):
             #prints map list into the map
             print("| {} ".format(mapList[row,column]),end="")
-        print("|")
+        if row == 0:
+            print("|",end="")
+            print("           "+str(currency))
+        else:
+            print("|")
     print("  ",end="")
     #prints last +-----+-----+-----+-----+
     for row in range(20):
-        print("+-----",end="")
+        print("+---",end="")
     print("+",end="")
     print()
 
@@ -58,7 +68,7 @@ def createEmptyMap(map_dimensions):
     mapList = {}
     for x in range(map_dimensions):
         for y in range(map_dimensions):
-            mapList[x,y] = '   '
+            mapList[x,y] = ' '
     return mapList
 
 #Adds all buildings into pool
@@ -89,23 +99,23 @@ def inGameChoice():
 
 #Save building and map Data
 def saveData():
+
+    w = csv.writer(open("output.csv", "w"))
+
+    # loop over dictionary keys and values
+    for key, val in mapList.items():
+        # write every key and value to file
+        w.writerow([key, val])
+
     with open('data.txt', 'w') as f:
         #writes turn and goes to next line
         f.write('Turn {}\n'.format(turn))
-        for i in range(len(mapList)):
-            #write map list line by line
-            s = ""
-            for j in range(len(mapList[i])):
-                #adds all 20 columns into s and is written into file and goes next line
-                s = s + mapList[i,j] + ','
-            f.write(s[:-1] + '\n')
+        f.write('Currency {}\n'.format(currency))
         #Saving total build list
         a = ""
         for i in range(len(totalBuildingList)):
             a = a + totalBuildingList[i] + ","
         f.write(a[:-1] + '\n')
-        for i in range(len(currentBuildingNum)):
-            f.write("{:3s} {}\n".format(currentBuildingNum[i][0], currentBuildingNum[i][1]))
         
 #Save the current building 1 and 2
 def saveCurrentRandomBuilding():
@@ -115,9 +125,17 @@ def saveCurrentRandomBuilding():
 
 #Load data
 def load():
-    savedFileMap = []
     #Try to find file else loads new game
     try:
+
+        with open("output.csv","r") as obj:
+            reader=csv.reader(obj)
+            mapList = {}
+            for row in reader:
+                if len(row) != 0:
+                    first_int, last_int = row[0][1:-1].split(',')
+                    mapList[int(first_int), int(last_int)]= row[1]
+
         with open("data.txt", "r") as f:
             #Adding all text into a list
             for i in f:
@@ -127,20 +145,11 @@ def load():
         #Getting turn Number
         turn = savedFileMap[0][0]
         turn = int(turn.replace("Turn",""))
-
-        #Getting Map List
-        mapList = savedFileMap[1:5]
+        currency = savedFileMap[1][0]
+        currency = int(currency.replace("Currency",""))
 
         #getting total building list
-        totalBuildingList = savedFileMap[5]
-
-        #getting Building numbers list
-        currentBuildingNum = []
-        for i in range(5):
-            list = []
-            list.append(buildingType[i])
-            list.append(savedFileMap[i+6][0][-1])
-            currentBuildingNum.append(list)
+        totalBuildingList = savedFileMap[2]
 
     except:
         #returns new game
@@ -149,14 +158,12 @@ def load():
         turn = 1
         mapList = createEmptyMap(20)
         totalBuildingList = totalBuildings(buildingType)
-        currentBuildingNum = []
         for i in range(len(buildingType)):
             list = []
             list.append(buildingType[i])
             list.append(totalBuildingList.count(buildingType[i]))
-            currentBuildingNum.append(list)
 
-    return turn, mapList, totalBuildingList, currentBuildingNum
+    return turn, currency,mapList, totalBuildingList
 
 #Loads the current building 1 and 2
 def loadCurrentRandomBuilding():
@@ -215,16 +222,16 @@ def adjacent(turn, row, column):
     if turn == 1:
         validPos = True
         return validPos
-    elif 17>turn>1:
+    else:
         try:
             #checking for adjacent buildings
             #Checks top, bottom, left, right respectively
-            if row+1 != 20 and mapList[row+1,column] != "   "\
-            or row-1 != -1 and mapList[row-1,column] != "   "\
-            or column-1 != -1 and mapList[row,column-1] != "   "\
-            or column+1 != 20 and mapList[row,column+1] != "   ":
+            if row+1 != 20 and mapList[row+1,column] != " "\
+            or row-1 != -1 and mapList[row-1,column] != " "\
+            or column-1 != -1 and mapList[row,column-1] != " "\
+            or column+1 != 20 and mapList[row,column+1] != " ":
                 #Check if current space is 
-                if mapList[row,column] == "   ":
+                if mapList[row,column] == " ":
                     #Position is a valid position
                     validPos = True
             assert validPos
@@ -584,18 +591,23 @@ def enterScore():
 
 #Function for building choices before the start of a new game
 def buildingChoice():
-    buildings = ["BCH", "FAC", "HSE", "SHP", "HWY", "MON","PRK"]
-    while True:
-        try:
-            print(buildings)
-            choice = input("Choose your 5 building types for this game session. e.g. HWY | ")
-            assert choice in buildings
-            buildings.remove(choice)
+    buildings = ["R", "I", "C", "O", "*"]
+    if len(buildings) > 5:
+        while True:
+            try:
+                print(buildings)
+                choice = input("Choose your 5 building types for this game session. e.g. HWY | ")
+                assert choice in buildings
+                buildings.remove(choice)
+                buildingType.append(choice)
+            except AssertionError:
+                print("Please input correct buildings in caps.")
+            if len(buildingType) == 5:
+                break
+    else:
+        for i in range(len(buildings)):
+            choice = buildings[i]
             buildingType.append(choice)
-        except AssertionError:
-            print("Please input correct buildings in caps.")
-        if len(buildingType) == 5:
-            break
 
 #Game Main Code
 while True:
@@ -616,12 +628,6 @@ while True:
         building2 = totalBuildingList[num2] 
 
         while True:
-            currentBuildingNum = []
-            for i in range(len(buildingType)):
-                list = []
-                list.append(buildingType[i])
-                list.append(totalBuildingList.count(buildingType[i]))
-                currentBuildingNum.append(list)
             choice = inGameChoice()
 
             if choice == 1:
@@ -635,6 +641,7 @@ while True:
                     if validPos == True:
                         mapList[row,column] = building1
                         turn = turn+1
+                        currency -= 1
                         #setting coming pair of buildings
                         num1 = random.randint(0,len(totalBuildingList)-1)
                         num2 = random.randint(0,len(totalBuildingList)-1)
@@ -657,6 +664,7 @@ while True:
                     if validPos == True:
                         mapList[row,column] = building2
                         turn = turn+1
+                        currency -= 1
                         #setting coming pair of buildings
                         num1 = random.randint(0,len(totalBuildingList)-1)
                         num2 = random.randint(0,len(totalBuildingList)-1)
@@ -690,7 +698,7 @@ while True:
 
     #Loading save file
     if menuChoice == 2:
-        turn, mapList, totalBuildingList, currentBuildingNum = load()
+        turn, currency,mapList, totalBuildingList = load()
         building1, building2 = loadCurrentRandomBuilding()
         #Setting first pair of buildings
         while True:
@@ -707,6 +715,7 @@ while True:
                     if validPos == True:
                         mapList[row,column] = building1
                         turn = turn+1
+                        currency -= 1
                         #setting coming pair of buildings
                         num1 = random.randint(0,len(totalBuildingList)-1)
                         num2 = random.randint(0,len(totalBuildingList)-1)
@@ -729,6 +738,7 @@ while True:
                     if validPos == True:
                         mapList[row,column] = building2
                         turn = turn+1
+                        currency -= 1
                         #setting coming pair of buildings
                         num1 = random.randint(0,len(totalBuildingList)-1)
                         num2 = random.randint(0,len(totalBuildingList)-1)
