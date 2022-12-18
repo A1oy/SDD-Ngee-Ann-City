@@ -244,36 +244,46 @@ def adjacent(turn, row, column):
 def score():
     score = 0
 
-    BCHscore = 0
-    statement = "BCH: "
-    #Score for BCH
+    RESscore = 0
+    statement = "RES: "
+    #Score for RES
     #Search through the map list
     for row in range(len(mapList)):
         for column in range(len(mapList[row])):
-            #Finding BCH cords
-            if mapList[row,column] == "BCH":
-                #If column A or column D
-                if column == 0 or column == 3:
-                    #Adds to the BCH's score
-                    BCHscore = BCHscore+3
-                    #Adds string to show player 
-                    statement = statement + "3" + " + "
-                #If column B or C
-                else:
-                    #Adds to the BCH's score
-                    BCHscore = BCHscore+1
+            #Finding RES  cords
+            if mapList[row,column] == "R":
+                #If
+                if mapList[row-1,column] == "R" or mapList[row+1,column] == "R" or mapList[row,column-1] == "R" or mapList[row,column+1] == "R":
+                    RESscore = 1
+                    statement = statement + "1" + " + "
+                elif mapList[row-1,column] == "R" or mapList[row+1,column] == "R" or mapList[row,column-1] == "R" or mapList[row,column+1] == "R":
+                    #Adds to the RES's score
+                    RESscore = RESscore+1
                     #Adds string to show player 
                     statement = statement + "1" + " + "
-    #Finds if BCH score = 0
-    if BCHscore != 0:
-        #Formats BCH score statement to print
-        statement = statement[:-2] + '= ' + str(BCHscore)
+                elif mapList[row-1,column] == "C" or mapList[row+1,column] == "C" or mapList[row,column-1] == "C" or mapList[row,column+1] == "C":
+                    #Adds to the RES's score
+                    RESscore = RESscore+1
+                    #Adds string to show player 
+                    statement = statement + "1" + " + "
+                elif mapList[row-1,column] == "O" or mapList[row+1,column] == "O" or mapList[row,column-1] == "O" or mapList[row,column+1] == "O":
+                    #Adds to the RES's score
+                    RESscore = RESscore+2
+                    #Adds string to show player 
+                    statement = statement + "2" + " + "
+                else:
+                    RESscore = 0
+                    
+    #Finds if RES score = 0
+    if RESscore != 0:
+        #Formats RES score statement to print
+        statement = statement[:-2] + '= ' + str(RESscore)
     else:
         #If score == 0 
-        statement = "BCH: 0"
+        statement = "RES: 0"
     print()
     print(statement)
-    score = score + BCHscore
+    score = score + RESscore
 
     #Score for FAC
     FACNum = 0
