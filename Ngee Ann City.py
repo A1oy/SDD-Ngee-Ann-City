@@ -253,7 +253,7 @@ def score():
             #Finding RES  cords
             if mapList[row,column] == "R":
                 #If
-                if mapList[row-1,column] == "R" or mapList[row+1,column] == "R" or mapList[row,column-1] == "R" or mapList[row,column+1] == "R":
+                if mapList[row-1,column] == "I" or mapList[row+1,column] == "I" or mapList[row,column-1] == "I" or mapList[row,column+1] == "I":
                     RESscore = 1
                     statement = statement + "1" + " + "
                 elif mapList[row-1,column] == "R" or mapList[row+1,column] == "R" or mapList[row,column-1] == "R" or mapList[row,column+1] == "R":
@@ -285,260 +285,104 @@ def score():
     print(statement)
     score = score + RESscore
 
-    #Score for FAC
-    FACNum = 0
+    #Score for IND
+    IndScore = 0
     #loops to go through map 
     for row in range(len(mapList)):
         for column in range(len(mapList[row])):
-            #If find FAC, adds into total FAC count
-            if "FAC" == mapList[row,column]:
-                FACNum = FACNum + 1
-    #Finding the number of FAC
-    FACscore = 0
-    #For different FAC calculation formula
-    if FACNum <= 4:
-        statement = "FAC: "
-        FACscore = FACscore + (FACNum*FACNum)
-        for i in range(FACNum):
-            statement = statement + str(FACNum) + " + "
+            #If find Ind, addscore
+            if "I" == mapList[row,column]:
+                IndScore = IndScore + 1
+                #If
+                if mapList[row-1,column] == "R":
+                    currency += 1
+                elif mapList[row+1,column] == "R":
+                    currency += 1
+                elif mapList[row,column-1] == "R":
+                    currency += 1
+                elif mapList[row,column+1] == "R":
+                    currency += 1
+    #Finding if Ind score = 0
+    if IndScore != 0:
+        statement = statement[:-2] + '= ' + str(IndScore)
     else:
-        statement = "FAC: 4 + 4 + 4 + 4 + "
-        FACscore = FACscore + (4*4) + (FACNum - 4)
-        for i in range(FACNum-4):
-            statement = statement + "1 + "
-    #Finding if FAC score = 0
-    if FACscore != 0:
-        statement = statement[:-2] + '= ' + str(FACscore)
-    else:
-        statement = "FAC: 0"
+        statement = "IND: 0"
     print(statement)
-    score = score + FACscore
+    score = score + IndScore
     
-    #Score for HSE
-    HSEscore = 0
-    statement = "HSE: "
-    #Loops through map for to find cords of HSE
+    #Score for Comm
+    CommScore = 0
+    statement = "COMM: "
+    #Loops through map for to find cords of Comm
     for row in range(len(mapList)):
         for column in range(len(mapList[row])):
-            #Finding HSE cords
-            if mapList[row,column] == "HSE":
-                eachHSEscore = 0
-            #Finding if there is a FAC around current HSE
-                if row+1 != 4 and mapList[row+1,column] == "FAC"\
-                or row-1 != -1 and mapList[row-1,column] == "FAC"\
-                or column-1 != -1 and mapList[row,column-1] == "FAC"\
-                or column+1 != 4 and mapList[row,column+1] == "FAC":
-                    eachHSEscore = 1
-
+            #Finding Comm cords
+            if mapList[row,column] == "C":
+                if mapList[row-1,column] == "R" or mapList[row+1,column] == "R" or mapList[row,column-1] == "R" or mapList[row,column+1] == "R":
+                    #Add currency
+                    currency += 1
+                elif mapList[row-1,column] == "C" or mapList[row+1,column] == "C" or mapList[row,column-1] == "C" or mapList[row,column+1] == "C":
+                    #Adds to the Comm's score
+                    CommScore = CommScore+1
+                    #Adds string to show player 
+                    statement = statement + "1" + " + "
                 else:
-                    #Finding for HSE around current HSE
-                    if row+1 != 4 and mapList[row+1,column]\
-                        == "HSE":
-                        eachHSEscore = eachHSEscore + 1
-                    if row+1 != -1 and mapList[row-1,column]\
-                        == "HSE":
-                        eachHSEscore = eachHSEscore + 1
-                    if column-1 != -1 and mapList[row,column-1]\
-                        == "HSE":
-                        eachHSEscore = eachHSEscore + 1
-                    if column+1 != 4 and mapList[row,column+1]\
-                        == "HSE":
-                        eachHSEscore = eachHSEscore + 1
-
-                    #Finding for SHP around current HSE
-                    if row+1 != 4 and mapList[row+1,column]\
-                        =="SHP":
-                        eachHSEscore = eachHSEscore + 1
-                    if row+1 != -1 and mapList[row-1,column]\
-                        =="SHP":
-                        eachHSEscore = eachHSEscore + 1
-                    if column-1 != -1 and mapList[row,column-1]\
-                        =="SHP":
-                        eachHSEscore = eachHSEscore + 1
-                    if column+1 != 4 and mapList[row,column+1]\
-                        =="SHP":
-                        eachHSEscore = eachHSEscore + 1
-
-                    #Finding for BCH around current HSE
-                    if row+1 != 4 and mapList[row+1,column]\
-                        == "BCH":
-                        eachHSEscore = eachHSEscore + 2
-                    if row+1 != -1 and mapList[row-1,column]\
-                        == "BCH":
-                        eachHSEscore = eachHSEscore + 2
-                    if column-1 != -1 and mapList[row,column-1]\
-                        == "BCH":
-                        eachHSEscore = eachHSEscore + 2
-                    if column+1 != 4 and mapList[row,column+1]\
-                        == "BCH":
-                        eachHSEscore = eachHSEscore + 2
-                statement = statement + str(eachHSEscore) + " + "
-                HSEscore = HSEscore + eachHSEscore
-    #Finding if HSE score = 0
-    if HSEscore != 0:
-        statement = statement[:-2] + '= ' + str(HSEscore)
+                    CommScore = 0        
+    #Finding if Ind score = 0
+    if CommScore != 0:
+        statement = statement[:-2] + '= ' + str(IndScore)
     else:
-        statement = "HSE: 0"
+        statement = "Comm: 0"
     print(statement)
-    score = score + HSEscore                
+    score = score + CommScore
 
-    #Score for SHP
-    SHPscore = 0
-    statement = "SHP: "
-    #Loops through map for SHP cords
+    #Score for Park
+    ParkScore = 0
+    statement = "PAR: "
+    #Loops through map for to find cords of PAR
     for row in range(len(mapList)):
         for column in range(len(mapList[row])):
-            #Finding SHP cords
-            if mapList[row,column] == "SHP":
-                eachSHPscore = 0
-                #Finding for MON around current SHP
-                if row+1 != 4 and mapList[row+1,column] == "MON"\
-                or row-1 != -1 and mapList[row-1,column] == "MON"\
-                or column-1 != -1 and mapList[row,column-1] == "MON"\
-                or column+1 != 4 and mapList[row,column+1] == "MON":
-                    eachSHPscore = eachSHPscore + 1
-                #Finding for FAC around current SHP
-                if row+1 != 4 and mapList[row+1,column] == "FAC"\
-                or row-1 != -1 and mapList[row-1,column] == "FAC"\
-                or column-1 != -1 and mapList[row,column-1] == "FAC"\
-                or column+1 != 4 and mapList[row,column+1] == "FAC":
-                    eachSHPscore = eachSHPscore + 1
-                #Finding for SHP around current SHP
-                if row+1 != 4 and mapList[row+1,column] == "SHP"\
-                or row-1 != -1 and mapList[row-1,column] == "SHP"\
-                or column-1 != -1 and mapList[row,column-1] == "SHP"\
-                or column+1 != 4 and mapList[row,column+1] == "SHP":
-                    eachSHPscore = eachSHPscore + 1
-                #Finding for HSE around current SHP
-                if row+1 != 4 and mapList[row+1,column] == "HSE"\
-                or row-1 != -1 and mapList[row-1,column] == "HSE"\
-                or column-1 != -1 and mapList[row,column-1] == "HSE"\
-                or column+1 != 4 and mapList[row,column+1] == "HSE":
-                    eachSHPscore = eachSHPscore + 1
-                #Finding for BCH around current SHP
-                if row+1 != 4 and mapList[row+1,column] == "BCH"\
-                or row-1 != -1 and mapList[row-1,column] == "BCH"\
-                or column-1 != -1 and mapList[row,column-1] == "BCH"\
-                or column+1 != 4 and mapList[row,column+1] == "BCH":
-                    eachSHPscore = eachSHPscore + 1
-                #Finding for HWY around current SHP
-                if row+1 != 4 and mapList[row+1,column] == "HWY"\
-                or row-1 != -1 and mapList[row-1,column] == "HWY"\
-                or column-1 != -1 and mapList[row,column-1] == "HWY"\
-                or column+1 != 4 and mapList[row,column+1] == "HWY":
-                    eachSHPscore = eachSHPscore + 1
-                statement = statement + str(eachSHPscore) + " + "
-                SHPscore = SHPscore + eachSHPscore
-    #Finding if SHP score = 0
-    if SHPscore != 0:
-        statement = statement[:-2] + '= ' + str(SHPscore)
+            #Finding Comm cords
+            if mapList[row,column] == "O":
+                if mapList[row-1,column] == "O" or mapList[row+1,column] == "O" or mapList[row,column-1] == "O" or mapList[row,column+1] == "O":
+                    #Add Score
+                    ParkScore += 1
+    #Finding if Park score = 0
+    if ParkScore != 0:
+        statement = statement[:-2] + '= ' + str(ParkScore)
     else:
         statement = "SHP: 0"
     print(statement)
-    score = score + SHPscore               
+    score = score + ParkScore               
 
-    #Score for HWY
-    statement = "HWY: "
-    HWYscore = 0
-    HWYstreakNum = 0
-    #Loops through map for HWY cords
+    #Score for Road
+    statement = "ROAD: "
+    RoadScore = 0
+    RoadStreakNum = 0
+    #Loops through map for Road cords
     for row in range(len(mapList)):
         for column in range(len(mapList)):
-            #Finding for HWY
-            if mapList[row,column] == "HWY":
-                #Each HWY found increases streak
-                HWYstreakNum = HWYstreakNum + 1
-                #restarts streak since HWY only works for rows
+            #Finding for Road
+            if mapList[row,column] == "*":
+                #Each Road found increases streak
+                RoadStreakNum = RoadStreakNum + 1
+                #restarts streak since Road only works for rows
                 if column == 3:
-                    statement = statement + (str(HWYstreakNum) + " + ")*HWYstreakNum
-                    HWYscore = HWYscore + (HWYstreakNum*HWYstreakNum)
-                    HWYstreakNum = 0
-            #restarts streak since no other HWY found beside
+                    statement = statement + (str(RoadStreakNum) + " + ")*RoadStreakNum
+                    Roadscore = Roadscore + (RoadStreakNum*RoadStreakNum)
+                    RoadStreakNum = 0
+            #restarts streak since no other Road found beside
             else:
-                statement = statement + (str(HWYstreakNum) + " + ")*HWYstreakNum
-                HWYscore = HWYscore + (HWYstreakNum*HWYstreakNum)
-                HWYstreakNum = 0
-    #Finding if HWY score = 0
-    if HWYscore != 0:
-        statement = statement[:-2] + '= ' + str(HWYscore)
+                statement = statement + (str(RoadStreakNum) + " + ")*RoadStreakNum
+                RoadScore = RoadScore + (RoadStreakNum*RoadStreakNum)
+                RoadStreakNum = 0
+    #Finding if Road score = 0
+    if Roadscore != 0:
+        statement = statement[:-2] + '= ' + str(RoadScore)
     else:
-        statement = "HWY: 0"
+        statement = "Road: 0"
     print(statement)
-    score = score + HWYscore
-
-    #Score for MON
-    statement = "MON: "
-    MONnum = 0
-    MONscore = 0
-    MONcornerNum = 0
-    for row in range(len(mapList)):
-        for column in range(len(mapList)):
-            #Finding num of MON
-            if mapList[row,column] == "MON":
-                MONnum = MONnum + 1
-                statement = statement + "1 + "
-                MONscore = MONscore + 1
-                #Finding for corner MON
-                if row == 0 and column == 0:
-                    #Formatting of statement to be printed
-                    statement = statement[:-4] + '2 + '
-                    MONcornerNum = MONcornerNum + 1
-                    #Only adds 1 since the other 1 was added before
-                    MONscore = MONscore + 1
-                if row == 0 and column == 3:
-                    #Formatting of statement to be printed
-                    statement = statement[:-4] + '2 + '
-                    MONcornerNum = MONcornerNum + 1
-                    #Only adds 1 since the other 1 was added before
-                    MONscore = MONscore + 1
-                if row == 3 and column == 0:
-                    #Formatting of statement to be printed
-                    statement = statement[:-4] + '2 + '
-                    MONcornerNum = MONcornerNum + 1
-                    #Only adds 1 since the other 1 was added before
-                    MONscore = MONscore + 1
-                if row == 3 and column == 3:
-                    #Formatting of statement to be printed
-                    statement = statement[:-4] + '2 + '
-                    MONcornerNum = MONcornerNum + 1
-                    #Only adds 1 since the other 1 was added before
-                    MONscore = MONscore + 1
-    if MONcornerNum >= 3:
-        MONscore = MONnum * 4
-        #Resets statement
-        statement = "MON: "
-        statement = statement + "4 + "*MONnum
-    if MONscore != 0:
-        statement = statement[:-2] + '= ' + str(MONscore)
-    else:
-        statement = "MON: 0"
-    print(statement)
-    score = score + MONscore
-
-    #Score for PRK
-    PRKdict = {1:1, 2:3, 3:8, 4:16, 5:22, 6:23, 7:24, 8:25}
-    statement = "PRK: "
-    PRKscore = 0
-    PRKsize = 0
-    for row in range(len(mapList)):
-        checkRow = False
-        for column in range(len(mapList)):
-            checkColumn = False
-            #Finding for PRK
-            if mapList[row,column] == "PRK":
-                PRKsize = PRKsize + 1
-                if row-1 != -1 and mapList[row-1,column] == "PRK":
-                    checkRow = True
-        if checkRow == False: 
-            PRKscore = PRKscore + PRKdict[PRKsize]
-            statement = statement + str(PRKdict[PRKsize])
-
-    if PRKscore != 0:
-        statement = statement[:-2] + '= ' + str(PRKscore)
-    else:
-        statement = "PRK: 0"
-    print(statement)
-    score = score + PRKscore
+    score = score + RoadScore
 
     print("Total score: "+str(score))
     return(score)
@@ -606,7 +450,7 @@ def buildingChoice():
         while True:
             try:
                 print(buildings)
-                choice = input("Choose your 5 building types for this game session. e.g. HWY | ")
+                choice = input("Choose your 5 building types for this game session. e.g. C | ")
                 assert choice in buildings
                 buildings.remove(choice)
                 buildingType.append(choice)
