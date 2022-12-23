@@ -210,7 +210,7 @@ def cord():
                 alphabet = cords[0]
                 alphabet = alphabet.upper()
                 #takes Number
-                row = int(cords[1])-1
+                row = int(cords[1:len(cords)])-1
                 column = columnName.index(alphabet)
                 return row, column
         except:
