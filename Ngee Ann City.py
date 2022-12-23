@@ -377,7 +377,7 @@ def score():
                 RoadScore = RoadScore + (RoadStreakNum*RoadStreakNum)
                 RoadStreakNum = 0
     #Finding if Road score = 0
-    if Roadscore != 0:
+    if RoadScore != 0:
         statement = statement[:-2] + '= ' + str(RoadScore)
     else:
         statement = "Road: 0"
