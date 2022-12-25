@@ -245,11 +245,11 @@ def score():
     score = 0
 
     RESscore = 0
-    statement = "RES: "
+    statement = "Res: "
     #Score for RES
     #Search through the map list
     for row in range(len(mapList)):
-        for column in range(len(mapList[row])):
+        for column in range(len(mapList)):
             #Finding RES  cords
             if mapList[row,column] == "R":
                 #If
@@ -280,7 +280,7 @@ def score():
         statement = statement[:-2] + '= ' + str(RESscore)
     else:
         #If score == 0 
-        statement = "RES: 0"
+        statement = "Res: 0"
     print()
     print(statement)
     score = score + RESscore
@@ -306,13 +306,13 @@ def score():
     if IndScore != 0:
         statement = statement[:-2] + '= ' + str(IndScore)
     else:
-        statement = "IND: 0"
+        statement = "Ind: 0"
     print(statement)
     score = score + IndScore
     
     #Score for Comm
     CommScore = 0
-    statement = "COMM: "
+    statement = "Comm: "
     #Loops through map for to find cords of Comm
     for row in range(len(mapList)):
         for column in range(len(mapList[row])):
@@ -338,7 +338,7 @@ def score():
 
     #Score for Park
     ParkScore = 0
-    statement = "PAR: "
+    statement = "Park: "
     #Loops through map for to find cords of PAR
     for row in range(len(mapList)):
         for column in range(len(mapList[row])):
@@ -351,12 +351,12 @@ def score():
     if ParkScore != 0:
         statement = statement[:-2] + '= ' + str(ParkScore)
     else:
-        statement = "SHP: 0"
+        statement = "Park: 0"
     print(statement)
     score = score + ParkScore               
 
     #Score for Road
-    statement = "ROAD: "
+    statement = "Road: "
     RoadScore = 0
     RoadStreakNum = 0
     #Loops through map for Road cords
@@ -369,7 +369,7 @@ def score():
                 #restarts streak since Road only works for rows
                 if column == 3:
                     statement = statement + (str(RoadStreakNum) + " + ")*RoadStreakNum
-                    Roadscore = Roadscore + (RoadStreakNum*RoadStreakNum)
+                    RoadScore = RoadScore + (RoadStreakNum*RoadStreakNum)
                     RoadStreakNum = 0
             #restarts streak since no other Road found beside
             else:
@@ -377,7 +377,7 @@ def score():
                 RoadScore = RoadScore + (RoadStreakNum*RoadStreakNum)
                 RoadStreakNum = 0
     #Finding if Road score = 0
-    if Roadscore != 0:
+    if RoadScore != 0:
         statement = statement[:-2] + '= ' + str(RoadScore)
     else:
         statement = "Road: 0"
