@@ -248,8 +248,8 @@ def score():
     statement = "Res: "
     #Score for RES
     #Search through the map list
-    for row in range(len(mapList)):
-        for column in range(len(mapList[row])):
+    for row in range(20):
+        for column in range(20):
             #Finding RES  cords
             if mapList[row,column] == "R":
                 #If
