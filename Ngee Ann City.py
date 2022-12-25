@@ -210,7 +210,7 @@ def cord():
                 alphabet = cords[0]
                 alphabet = alphabet.upper()
                 #takes Number
-                row = int(cords[1])-1
+                row = int(cords[1:len(cords)])-1
                 column = columnName.index(alphabet)
                 return row, column
         except:
@@ -249,7 +249,7 @@ def score():
     #Score for RES
     #Search through the map list
     for row in range(len(mapList)):
-        for column in range(len(mapList)):
+        for column in range(len(mapList[row])):
             #Finding RES  cords
             if mapList[row,column] == "R":
                 #If
@@ -288,8 +288,8 @@ def score():
     #Score for IND
     IndScore = 0
     #loops to go through map 
-    for row in range(len(mapList)):
-        for column in range(len(mapList[row])):
+    for row in range(20):
+        for column in range(20):
             #If find Ind, addscore
             if "I" == mapList[row,column]:
                 IndScore = IndScore + 1
@@ -314,8 +314,8 @@ def score():
     CommScore = 0
     statement = "Comm: "
     #Loops through map for to find cords of Comm
-    for row in range(len(mapList)):
-        for column in range(len(mapList[row])):
+    for row in range(20):
+        for column in range(20):
             #Finding Comm cords
             if mapList[row,column] == "C":
                 if mapList[row-1,column] == "R" or mapList[row+1,column] == "R" or mapList[row,column-1] == "R" or mapList[row,column+1] == "R":
@@ -340,8 +340,8 @@ def score():
     ParkScore = 0
     statement = "Park: "
     #Loops through map for to find cords of PAR
-    for row in range(len(mapList)):
-        for column in range(len(mapList[row])):
+    for row in range(20):
+        for column in range(20):
             #Finding Comm cords
             if mapList[row,column] == "O":
                 if mapList[row-1,column] == "O" or mapList[row+1,column] == "O" or mapList[row,column-1] == "O" or mapList[row,column+1] == "O":
@@ -360,8 +360,8 @@ def score():
     RoadScore = 0
     RoadStreakNum = 0
     #Loops through map for Road cords
-    for row in range(len(mapList)):
-        for column in range(len(mapList)):
+    for row in range(20):
+        for column in range(20):
             #Finding for Road
             if mapList[row,column] == "*":
                 #Each Road found increases streak
