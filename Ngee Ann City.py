@@ -257,10 +257,40 @@ def score():
                         if mapList[row,column+1] == "I" or mapList [row+1,column] == "I":
                             RESscore = 1
                             statement = statement + "1" + "+"
+                        elif mapList[row,column+1] == "R" or mapList [row+1,column] == "R":
+                            #Adds to the RES's score
+                            RESscore = RESscore+1
+                            #Adds string to show player
+                            statement = statement + "1" + " + "
+                        elif mapList[row,column+1] == "C" or mapList [row+1,column] == "C":
+                            #Adds to the RES's score
+                            RESscore = RESscore+1
+                            #Adds string to show player 
+                            statement = statement + "1" + " + "
+                        elif mapList[row,column+1] == "O" or mapList [row+1,column] == "O":
+                            #Adds to the RES's score
+                            RESscore = RESscore+2
+                            #Adds string to show player 
+                            statement = statement + "2" + " + "
                     elif column == 19:
                         if mapList[row,column-1] == "I" or mapList [row+1,column] == "I":
                             RESscore = 1
                             statement = statement + "1" + "+"
+                        elif mapList[row,column-1] == "R" or mapList [row+1,column] == "R":
+                            #Adds to the RES's score
+                            RESscore = RESscore+1
+                            #Adds string to show player 
+                            statement = statement + "1" + " + "
+                        elif mapList[row,column-1] == "C" or mapList [row+1,column] == "C":
+                            #Adds to the RES's score
+                            RESscore = RESscore+1
+                            #Adds string to show player 
+                            statement = statement + "1" + " + "
+                        elif mapList[row,column-1] == "O" or mapList [row+1,column] == "O":
+                            #Adds to the RES's score
+                            RESscore = RESscore+2
+                            #Adds string to show player 
+                            statement = statement + "2" + " + "
                     else:
                         if mapList[1,column] == "I" or mapList[0, column+1] == "I" or mapList[0, column-1] == "I":
                             RESscore = 1
@@ -280,74 +310,64 @@ def score():
                             RESscore = RESscore+2
                             #Adds string to show player 
                             statement = statement + "2" + " + "
-            elif row == 19:
-                if column == 0:
+                elif row == 19:
+                    if column == 0:
                         if mapList[row,column+1] == "I" or mapList [row-1,column] == "I":
                             RESscore = 1
                             statement = statement + "1" + "+"
-                elif column == 19:
-                    if mapList[row,column-1] == "I" or mapList [row-1,column] == "I":
-                        RESscore = 1
-                        statement = statement + "1" + "+"
-                else:
-                    if mapList[18,column] == "I" or mapList[19, column+1] == "I" or mapList[19, column-1] == "I":
-                        RESscore = 1
-                        statement = statement + "1" + "+"
-                    elif mapList[18,column] == "R" or mapList[19, column+1] == "R" or mapList[19, column-1] == "R":
-                        #Adds to the RES's score
-                        RESscore = RESscore+1
-                        #Adds string to show player 
-                        statement = statement + "1" + " + "
-                    elif mapList[18,column] == "C" or mapList[19, column+1] == "C" or mapList[19, column-1] == "C":
-                        #Adds to the RES's score
-                        RESscore = RESscore+1
-                        #Adds string to show player 
-                        statement = statement + "1" + " + "
-                    elif mapList[18,column] == "O" or mapList[19, column+1] == "O" or mapList[19, column-1] == "O":
-                        #Adds to the RES's score
-                        RESscore = RESscore+2
-                        #Adds string to show player 
-                        statement = statement + "2" + " + "
-            elif column == 0:
-                if mapList[row, 0] == "R":
-                    if mapList[row,1] == "I" or mapList[row+1,0] == "I" or mapList[row-1, 0] == "I":
-                        RESscore = 1
-                        statement = statement + "1" + "+"
-                    elif mapList[row,1] == "R" or mapList[row+1,0] == "R" or mapList[row-1, 0] == "R":
-                        #Adds to the RES's score
-                        RESscore = RESscore+1
-                        #Adds string to show player 
-                        statement = statement + "1" + " + "
-                    elif mapList[row,1] == "C" or mapList[row+1,0] == "C" or mapList[row-1, 0] == "C":
-                        #Adds to the RES's score
-                        RESscore = RESscore+1
-                        #Adds string to show player 
-                        statement = statement + "1" + " + "
-                    elif mapList[row,1] == "O" or mapList[row+1,0] == "O" or mapList[row-1, 0] == "O":
-                        #Adds to the RES's score
-                        RESscore = RESscore+2
-                        #Adds string to show player 
-                        statement = statement + "2" + " + "
-            elif column == 19:
-                if mapList[row, 19] == "R":
-                    if mapList[row,18] == "I" or mapList[row+1,19] == "I" or mapList[row-1, 19] == "I":
-                        RESscore = 1
-                        statement = statement + "1" + "+"
-                    elif mapList[row,18] == "R" or mapList[row+1,19] == "R" or mapList[row-1, 19] == "R":
-                        #Adds to the RES's score
-                        RESscore = RESscore+1
-                        #Adds string to show player 
-                        statement = statement + "1" + " + "
-                    elif mapList[row,18] == "C" or mapList[row+1,19] == "C" or mapList[row-1, 19] == "C":
-                        #Adds to the RES's score
-                        RESscore = RESscore+1
-                        #Adds string to show player 
-                        statement = statement + "1" + " + "
-                    elif mapList[row,18] == "O" or mapList[row+1,19] == "O" or mapList[row-1, 19] == "O":
-                        #Adds to the RES's score
-                        RESscore = RESscore+2
-                        #Adds string to show player 
-                        statement = statement + "2" + " + "
+                        elif mapList[row,column+1] == "R" or mapList [row-1,column] == "R":
+                            #Adds to the RES's score
+                            RESscore = RESscore+1
+                            #Adds string to show player
+                            statement = statement + "1" + " + "
+                        elif mapList[row,column+1] == "C" or mapList [row-1,column] == "C":
+                            #Adds to the RES's score
+                            RESscore = RESscore+1
+                            #Adds string to show player 
+                            statement = statement + "1" + " + "
+                        elif mapList[row,column+1] == "O" or mapList [row-1,column] == "O":
+                            #Adds to the RES's score
+                            RESscore = RESscore+2
+                            #Adds string to show player 
+                            statement = statement + "2" + " + "
+                    elif column == 19:
+                        if mapList[row,column-1] == "I" or mapList [row-1,column] == "I":
+                            RESscore = 1
+                            statement = statement + "1" + "+"
+                        elif mapList[row,column-1] == "R" or mapList [row-1,column] == "R":
+                            #Adds to the RES's score
+                            RESscore = RESscore+1
+                            #Adds string to show player
+                            statement = statement + "1" + " + "
+                        elif mapList[row,column-1] == "C" or mapList [row-1,column] == "C":
+                            #Adds to the RES's score
+                            RESscore = RESscore+1
+                            #Adds string to show player 
+                            statement = statement + "1" + " + "
+                        elif mapList[row,column-1] == "O" or mapList [row-1,column] == "O":
+                            #Adds to the RES's score
+                            RESscore = RESscore+2
+                            #Adds string to show player 
+                            statement = statement + "2" + " + "
+                    else:
+                        if mapList[18,column] == "I" or mapList[19, column+1] == "I" or mapList[19, column-1] == "I":
+                            RESscore = 1
+                            statement = statement + "1" + "+"
+                        elif mapList[18,column] == "R" or mapList[19, column+1] == "R" or mapList[19, column-1] == "R":
+                            #Adds to the RES's score
+                            RESscore = RESscore+1
+                            #Adds string to show player 
+                            statement = statement + "1" + " + "
+                        elif mapList[18,column] == "C" or mapList[19, column+1] == "C" or mapList[19, column-1] == "C":
+                            #Adds to the RES's score
+                            RESscore = RESscore+1
+                            #Adds string to show player 
+                            statement = statement + "1" + " + "
+                        elif mapList[18,column] == "O" or mapList[19, column+1] == "O" or mapList[19, column-1] == "O":
+                            #Adds to the RES's score
+                            RESscore = RESscore+2
+                            #Adds string to show player 
+                            statement = statement + "2" + " + "
             else:
                 if mapList[row,column] == "R":
                     #If
@@ -396,21 +416,22 @@ def score():
                     if column == 0:
                         if mapList[0, 1] == "R" or mapList[1, 0] == "R":
                             currency += 1
-                    if column == 19:
+                    elif column == 19:
                         if mapList[0, 18] == "R" or mapList[1, 19] == "R":
+                            currency += 1
+                    else:
+                        if mapList[1, column] == "R" or mapList[0, column-1] == "R" or mapList[0,column+1] == "R":
                             currency += 1
                 elif row == 19:
                     if column == 0:
                         if mapList[19, 1] == "R" or mapList[18, 0] == "R":
                             currency += 1
-                    if column == 19:
+                    elif column == 19:
                         if mapList[19, 18] == "R" or mapList[18, 19] == "R":
                             currency += 1
-                if mapList[1, column] == "R" or mapList[0, column-1] == "R" or mapList[0,column+1] == "R":
-                    currency += 1
-                elif row == 19:
-                    if mapList[18, column] == "R" or mapList[19, column-1] == "R" or mapList[19,column+1] == "R":
-                        currency += 1
+                    else:
+                        if mapList[18, column] == "R" or mapList[19, column-1] == "R" or mapList[19,column+1] == "R":
+                            currency += 1
                 elif column == 0:
                     if mapList[row, 1] == "R" or mapList[row+1, 0] == "R" or mapList[row-1,0] == "R":
                         currency += 1
@@ -418,14 +439,15 @@ def score():
                     if mapList[row, 18] == "R" or mapList[row+1, 19] == "R" or mapList[row-1,19] == "R":
                         currency += 1
                 else:
-                    if mapList[row-1,column] == "R":
-                        currency += 1
-                    elif mapList[row+1,column] == "R":
-                        currency += 1
-                    elif mapList[row,column-1] == "R":
-                        currency += 1
-                    elif mapList[row,column+1] == "R":
-                        currency += 1
+                    if mapList[row,column] == "I":
+                        if mapList[row-1,column] == "R":
+                            currency += 1
+                        elif mapList[row+1,column] == "R":
+                            currency += 1
+                        elif mapList[row,column-1] == "R": 
+                            currency += 1
+                        elif mapList[row,column+1] == "R":
+                            currency += 1
     #Finding if Ind score = 0
     if IndScore != 0:
         statement = statement[:-2] + '= ' + str(IndScore)
@@ -442,17 +464,84 @@ def score():
         for column in range(20):
             #Finding Comm cords
             if mapList[row,column] == "C":
-                if mapList[row-1,column] == "R" or mapList[row+1,column] == "R" or mapList[row,column-1] == "R" or mapList[row,column+1] == "R":
-                    #Add currency
-                    currency += 1
-                elif mapList[row-1,column] == "C" or mapList[row+1,column] == "C" or mapList[row,column-1] == "C" or mapList[row,column+1] == "C":
-                    #Adds to the Comm's score
-                    CommScore = CommScore+1
-                    #Adds string to show player 
-                    statement = statement + "1" + " + "
+                if row == 0:
+                    if column == 0:
+                        if mapList[row+1,column] == "R" or mapList[row,column+1] == "R":
+                            currency += 1
+                        elif mapList[row+1,column] == "C" or mapList[row,column+1] == "C":
+                            #Adds to the Comm's score
+                            CommScore = CommScore+1
+                            #Adds string to show player 
+                            statement = statement + "1" + " + "
+                    elif column == 19:
+                        if mapList[row+1,column] == "R" or mapList[row,column-1] == "R":
+                            currency += 1
+                        elif mapList[row+1,column] == "C" or mapList[row,column-1] == "C":
+                            #Adds to the Comm's score
+                            CommScore = CommScore+1
+                            #Adds string to show player 
+                            statement = statement + "1" + " + "
+                    else:
+                        if mapList[row+1, column] == "R" or mapList[row, column-1] == "R" or mapList[row,column+1] == "R":
+                            currency += 1
+                        elif mapList[row+1, column] == "C" or mapList[row, column-1] == "C" or mapList[row,column+1] == "C":
+                            #Adds to the Comm's score
+                            CommScore = CommScore+1
+                            #Adds string to show player 
+                            statement = statement + "1" + " + "
+                elif row == 19:
+                    if column == 0:
+                        if mapList[row-1,column] == "R" or mapList[row,column+1] == "R":
+                            currency += 1
+                        elif mapList[row-1,column] == "C" or mapList[row,column+1] == "C":
+                            #Adds to the Comm's score
+                            CommScore = CommScore+1
+                            #Adds string to show player 
+                            statement = statement + "1" + " + "
+                    elif column == 19:
+                        if mapList[row-1,column] == "R" or mapList[row,column-1] == "R":
+                            currency += 1
+                        elif mapList[row-1,column] == "C" or mapList[row,column-1] == "C":
+                            #Adds to the Comm's score
+                            CommScore = CommScore+1
+                            #Adds string to show player 
+                            statement = statement + "1" + " + "
+                    else:
+                        if mapList[row-1, column] == "R" or mapList[row, column-1] == "R" or mapList[row,column+1] == "R":
+                            currency += 1
+                        elif mapList[row-1, column] == "C" or mapList[row, column-1] == "C" or mapList[row,column+1] == "C":
+                            #Adds to the Comm's score
+                            CommScore = CommScore+1
+                            #Adds string to show player 
+                            statement = statement + "1" + " + "
+                elif column == 0:
+                    if mapList[row, column+1] == "R" or mapList[row+1, column] == "R" or mapList[row-1,column] == "R":
+                        currency += 1
+                    elif mapList[row, column+1] == "C" or mapList[row+1, column] == "C" or mapList[row-1,column] == "C":
+                        #Adds to the Comm's score
+                        CommScore = CommScore+1
+                        #Adds string to show player 
+                        statement = statement + "1" + " + "
+                elif column == 19:
+                    if mapList[row, column-1] == "R" or mapList[row+1, column] == "R" or mapList[row-1,column] == "R":
+                        currency += 1
+                    elif mapList[row, column-1] == "C" or mapList[row+1, column] == "C" or mapList[row-1,column] == "C":
+                        #Adds to the Comm's score
+                        CommScore = CommScore+1
+                        #Adds string to show player 
+                        statement = statement + "1" + " + "
                 else:
-                    CommScore = 0        
-    #Finding if Ind score = 0
+                    if mapList[row-1,column] == "R" or mapList[row+1,column] == "R" or mapList[row,column-1] == "R" or mapList[row,column+1] == "R":
+                        #Add currency
+                        currency += 1
+                    elif mapList[row-1,column] == "C" or mapList[row+1,column] == "C" or mapList[row,column-1] == "C" or mapList[row,column+1] == "C":
+                        #Adds to the Comm's score
+                        CommScore = CommScore+1
+                        #Adds string to show player 
+                        statement = statement + "1" + " + "
+                    else:
+                        CommScore = 0        
+    #Finding if Comm score = 0
     if CommScore != 0:
         statement = statement[:-2] + '= ' + str(IndScore)
     else:
@@ -466,11 +555,38 @@ def score():
     #Loops through map for to find cords of PAR
     for row in range(20):
         for column in range(20):
-            #Finding Comm cords
+            #Finding Park cords
             if mapList[row,column] == "O":
-                if mapList[row-1,column] == "O" or mapList[row+1,column] == "O" or mapList[row,column-1] == "O" or mapList[row,column+1] == "O":
-                    #Add Score
-                    ParkScore += 1
+                if row == 0:
+                    if column == 0:
+                        if mapList [row,column+1] == "O" or mapList[row+1, column] == "O":
+                            ParkScore += 1
+                    elif column == 19:
+                        if mapList [row,column-1] == "O" or mapList[row+1, column] == "O":
+                            ParkScore += 1
+                    else:
+                        if mapList [row,column-1] == "O" or mapList[row, column+1] == "O" or mapList[row+1, column] == "O":
+                            ParkScore += 1
+                elif row == 19:
+                    if column == 0:
+                        if mapList [row,column+1] == "O" or mapList[row-1, column] == "O":
+                            ParkScore += 1
+                    elif column == 19:
+                        if mapList [row,column-1] == "O" or mapList[row-1, column] == "O":
+                            ParkScore += 1
+                    else:
+                        if mapList [row,column-1] == "O" or mapList[row, column+1] == "O" or mapList[row-1, column] == "O":
+                            ParkScore += 1
+                elif column == 0:
+                    if mapList [row,column+1] == "O" or mapList[row+1, column] == "O" or mapList[row-1, column] == "O":
+                        ParkScore += 1
+                elif column == 19:
+                    if mapList [row,column-1] == "O" or mapList[row+1, column] == "O" or mapList[row-1, column] == "O":
+                        ParkScore += 1
+                else:
+                    if mapList[row-1,column] == "O" or mapList[row+1,column] == "O" or mapList[row,column-1] == "O" or mapList[row,column+1] == "O":
+                        #Add Score
+                        ParkScore += 1
     #Finding if Park score = 0
     if ParkScore != 0:
         statement = statement[:-2] + '= ' + str(ParkScore)
