@@ -241,7 +241,7 @@ def adjacent(turn, row, column):
             print("Building must be adjacent to first building or on a clear space")
 
 #Function for total score and printing score
-def score():
+def score(currency):
     score = 0
 
     RESscore = 0
@@ -665,22 +665,22 @@ def enterScore():
             #more than 10 highscores, finds if score is higher than top 10
             if range(len(f)>10):
                 p = str(f[9]).strip("\n").split(",")
-                if score() > int(p[0]):
+                if score(currency) > int(p[0]):
                     with open("highscore.txt", "a") as a:
                         player = input("Input your name: ")
-                        s = str(score()) + "," + player + "\n"
+                        s = str(score(currency)) + "," + player + "\n"
                         a.write(s)
             #Not more than 10 highscores, adds in score
             else:
                 with open("highscore.txt", "a") as a:
                     player = input("Input your name: ")
-                    s = str(score()) + "," + player + "\n"
+                    s = str(score(currency)) + "," + player + "\n"
                     a.write(s)
     except:
         #If no highscore file/ deleted highscore file
         with open("highscore.txt", "a") as a:
             player = input("Input your name: ")
-            s = str(score()) + "," + player + "\n"
+            s = str(score(currency)) + "," + player + "\n"
             a.write(s)
 
 #Function for building choices before the start of a new game
@@ -771,7 +771,7 @@ while True:
                         break
 
             if choice == 3:
-                score()
+                score(currency)
 
             if choice == 4:
                 #Functions for saving
@@ -783,10 +783,10 @@ while True:
                 turn = 1
                 break
 
-            if turn > 16:
+            if currency == 0 or turn > 400:
                 print("Final layout of Simp City: ")
                 layout(columnName)
-                score()
+                score(currency)
                 enterScore()
                 break
 
@@ -845,7 +845,7 @@ while True:
                         break
 
             if choice == 3:
-                score()
+                score(currency)
 
             if choice == 4:
                 #Functions for saving
@@ -857,10 +857,10 @@ while True:
                 turn = 1
                 break
         
-            if turn > 16:
+            if currency == 0 or turn > 400:
                 print("Final layout of Simp City: ")
                 layout(columnName)
-                score()
+                score(currency)
                 enterScore()
                 break
 
